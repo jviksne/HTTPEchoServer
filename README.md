@@ -1,7 +1,6 @@
 # HTTP Echo Server
 
-Simple Go based HTTP(s) server echoing all the headers and message body of the request to
-in the body of the response. 
+Simple Go based HTTP(s) server echoing all the headers and message body of the request in the body of the response. 
 
 ## How to run
 
