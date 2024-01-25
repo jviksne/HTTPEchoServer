@@ -1,0 +1,6 @@
+port: 8080
+certFile: #"path/to/cert.pem" # Leave blank for HTTP
+keyFile: #"path/to/key.pem"   # Leave blank for HTTP
+listenPath: "/echo"           # Optional
+log: true                     # Set to false to disable logging
+maxLogSizeMB: 100             # When exceeded log file will stop being updated

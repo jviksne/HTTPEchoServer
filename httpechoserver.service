@@ -1,0 +1,14 @@
+[Unit]
+Description=httpechoserver
+
+[Service]
+ExecStart=/var/httpechoserver/httpechoserver
+Restart=always
+User=ubuntu
+Group=ubuntu
+Environment=PATH=/usr/bin:/usr/local/bin
+Environment=GO_ENV=production
+WorkingDirectory=/var/httpechoserver/
+
+[Install]
+WantedBy=multi-user.target

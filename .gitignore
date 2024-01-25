@@ -19,3 +19,6 @@
 
 # Go workspace file
 go.work
+sample-request-direct.txt
+sample-request-via-nginx.txt
+test.yammer
