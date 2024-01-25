@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"sync"
 	"time"
 
 	"gopkg.in/yaml.v2"
@@ -22,7 +23,10 @@ type Config struct {
 	MaxLogSizeMB int    `yaml:"maxLogSizeMB"`
 }
 
-var config Config
+var (
+	config       Config
+	logFileMutex sync.Mutex
+)
 
 func echoHandler(w http.ResponseWriter, r *http.Request) {
 
@@ -37,7 +41,7 @@ func echoHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	fmt.Print(w, "\n\n")
+	fmt.Fprint(w, "\n\n")
 
 	io.Copy(w, r.Body)
 }
@@ -53,6 +57,9 @@ func logRequest(ip string) {
 			return
 		}
 	}
+
+	logFileMutex.Lock()
+	defer logFileMutex.Unlock()
 
 	hasher := sha256.New()
 	hasher.Write([]byte(ip))
@@ -105,7 +112,7 @@ func main() {
 	})
 
 	address := fmt.Sprintf(":%d", config.Port)
-	fmt.Println("Started server on", address)
+	fmt.Printf("Started server on localhost:%d. Press Ctrl+C to terminate.\n", config.Port)
 	if config.CertFile == "" && config.KeyFile == "" {
 		err = http.ListenAndServe(address, nil)
 	} else {
