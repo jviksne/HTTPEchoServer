@@ -97,7 +97,7 @@ func main() {
 	}
 
 	if config.ListenPath == "" {
-		config.ListenPath = "/echo"
+		config.ListenPath = "/"
 	}
 
 	http.HandleFunc(config.ListenPath, func(w http.ResponseWriter, r *http.Request) {
